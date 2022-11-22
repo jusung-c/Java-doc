@@ -1,13 +1,10 @@
 package practice;
 
 public class PersonTest {
+    static {
+        System.out.println("static block");
+    }
     public static void main(String[] args) {
-        Person p1 = new Person();
-
-        System.out.println(Person.count);
-        Person.count++;
-        System.out.println(Person.count);
-        System.out.println(p1.count);
-
+        System.out.println("main block");
     }
 }
