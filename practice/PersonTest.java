@@ -1,10 +1,8 @@
 package practice;
 
 public class PersonTest {
-    static {
-        System.out.println("static block");
-    }
     public static void main(String[] args) {
-        System.out.println("main block");
+        Car c1 = new Car();
+        System.out.println(c1);
     }
 }
