@@ -1,7 +1,7 @@
 package practice;
 
 public class Car {
-    public void run() {
-        System.out.println("전륜구동");
+    public Car(String name) {
+        System.out.println("Car() 생성자 호출: " + name);
     }
 }

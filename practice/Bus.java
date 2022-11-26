@@ -1,8 +1,8 @@
 package practice;
 
 public class Bus extends Car {
-    @Override
-    public void run() {
-        System.out.println("후륜구동");
+    public Bus() {
+        super("자동차");
+        System.out.println("Bus 생성자 호출");
     }
 }

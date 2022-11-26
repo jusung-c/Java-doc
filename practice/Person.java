@@ -1,11 +1,18 @@
 package practice;
 
 public class Person {
-    String name;
-    static int count = 0;
+    private String name;
+    private String email;
+    private String password;
 
-    public void printName() {
-        System.out.println(name);
+    public Person(String name, String email) {
+        this.name = name;
+        this.email = email;
     }
 
+    public Person(String name, String email, String password) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+    }
 }
