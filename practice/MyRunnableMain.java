@@ -1,13 +1,16 @@
 package practice;
 
+import java.util.Arrays;
+
 public class MyRunnableMain {
     public static void main(String[] args) {
 
-        RunnableExecute runnableExecute = new RunnableExecute();
-        System.out.println("---------------------------");
-        runnableExecute.execute(()->{
-            System.out.println("run!!");
-        });
-        System.out.println("---------------------------");
+        char[] From = {'h', 'e', 'l', 'l', 'o', '!'};
+        char[] To = Arrays.copyOfRange(From, 1, 3);
+
+        for (char c : To) {
+            System.out.println(c);
+        }
+
     }
 }
