@@ -1,18 +1,18 @@
 package practice;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 
 public class List01 {
     public static void main(String[] args) {
-        ArrayList list = new ArrayList();
+        List<String> list = new ArrayList<>();
         list.add("kim");
         list.add("lee");
+        list.add("hong");
 
-        String s1 = (String) list.get(0);
-        String s2 = (String) list.get(1);
+        Collections.sort(list);
 
-        System.out.println(s1);
-        System.out.println(s2);
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println(list.get(i));
+        }
     }
 }
