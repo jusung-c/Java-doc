@@ -1,4 +1,4 @@
-package memo;
+package practice;
 
 import java.io.IOException;
 import java.io.InputStream;
