@@ -49,7 +49,7 @@ public class UserUI {
 
     // email 받기
     public String inputEmail() {
-        System.out.print("수정할 회원의 email을 입력하시오: ");
+        System.out.print("회원의 email을 입력하시오: ");
         String email = "";
         try {
             email = br.readLine();

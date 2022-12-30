@@ -10,25 +10,25 @@ public class test {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
-        int[][] dots = {{1, 1}, {2, 1}, {2, 2}, {1, 2}};
+        int[] sides = {11, 7};
 
-        int x = 0;
-        int y = 0;
+        int answer = 0;
 
-        for (int j = 1; j < dots.length; j++) {
-            if (dots[0][0] == dots[j][0]) {
-                y = dots[0][1] - dots[j][1];
-                if (y < 0) y *= -1;
-//                System.out.println("y:" + y);
-            }
+        // 가장 긴 변이 주어진 경우
+        Arrays.sort(sides);
 
-            if (dots[0][1] == dots[j][1]) {
-                x = dots[0][0] - dots[j][0];
-                if (x < 0) x *= -1;
-//                System.out.println("x:"+x);
+        for (int i = 1; i <= sides[1]; i++) {
+            if (sides[0] + i > sides[1]) {
+                answer++;
             }
         }
 
-        System.out.println(x * y);
+        // 아닌 경우
+        for (int i = sides[1] + 1; i < sides[0] + sides[1]; i++) {
+            answer++;
+        }
+
+        System.out.println(answer);
+
     }
 }
