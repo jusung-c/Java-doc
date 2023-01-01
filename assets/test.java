@@ -10,25 +10,26 @@ public class test {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
-        int[] sides = {11, 7};
+        String[] spell = {"z", "d", "x"};
+        String[] dic = {"def", "dww", "dzx", "loveaw"};
+        int answer = 2;
 
-        int answer = 0;
-
-        // 가장 긴 변이 주어진 경우
-        Arrays.sort(sides);
-
-        for (int i = 1; i <= sides[1]; i++) {
-            if (sides[0] + i > sides[1]) {
-                answer++;
+        for(int i=0; i<dic.length; i++) {
+            Set<Character> arr = new HashSet<>();
+            for(int j=0; j<dic[i].length(); j++) {
+                for(int k=0; k<spell.length; k++) {
+                    char c = dic[i].charAt(j);
+                    if(c == spell[k].charAt(0)){
+                        arr.add(c);
+                    }
+                }
+            }
+            if (arr.size() == spell.length) {
+                answer = 1;
             }
         }
 
-        // 아닌 경우
-        for (int i = sides[1] + 1; i < sides[0] + sides[1]; i++) {
-            answer++;
-        }
 
         System.out.println(answer);
-
     }
 }
