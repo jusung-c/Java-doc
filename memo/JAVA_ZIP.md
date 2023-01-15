@@ -2243,3 +2243,1247 @@ Collections 클래스의 sort 메소드를 이용해 List의 객체들을 정렬
 
 * Collections.shuffle();
   * 자료들을 섞어주는 메소드. 출력할 때마다 순서가 다르게 나온다.
+
+
+
+### JavaDoc 주석문
+
+* /** ... */
+* 사용하는 태그들
+
+```java
+/**
+ * List 인터페이스 실습
+ * 
+ * @author jus 
+ * @since 22.12.10
+ * @version 1.0
+ * 
+ */
+
+public class List01 {
+    ...
+}
+```
+
+#### IntelliJ에서 JavaDoc 생성하기
+
+1. shift키 연속 2번
+2. generate javaDoc 입력
+3. custom scope 선택 - JavaDoc 생성할 패키지, 클래스, 인터페이스 등 선택 (exclude로 제외 지정 가능)
+4. output directory - JavaDoc 생성할 경로 지정
+5. other command line arguments에 다음 입력`-encoding UTF-8 -charset UTF-8 -docencoding UTF-8`
+
+> 주석문을 잘 작성하는 방법은 주석문을 작성하지 않는 것이다.. 최소한으로 작성하자
+
+
+
+## 예외(Exception) 처리
+
+자바에서는 실행 시 2가지 형태의 오류가 발생할 수 있다.
+
+1. Error: 수습할 수 없는 심각한 오류메모리 부족, 스택오버플로우 등이 발생하여 프로그램이 죽는 것은 프로그래머가 제어할 수 없다.
+2. Exception: 예외 처리를 통해 수습할 수 있는 덜 심각한 오류
+
+Error의 종류
+
+* 컴파일시 발생하는 컴파일 에러
+* 실행시 발생하는 런타임 에러
+
+```java
+public class Exception01 {
+    public static void main(String[] args) {
+        ExceptionObj1 exobj1 = new ExceptionObj1();
+        int value = exobj1.divide(10, 0);
+        System.out.println(value);
+    }
+}
+
+class ExceptionObj1 {
+    public int divide(int i, int k) {
+        int value = 0;
+        value = i / k;
+        return value;
+    }
+}
+
+```
+
+0으로 나눌 수는 없기 때문에 java.lang.ArithmeticException 익셉션이 발생하면서 프로그램이 강제종료 된다.
+
+익셉션을 발생할 때에는 JVM이 ArithmeticException 인스턴스 객체를 만들어서 발생해준다.
+
+
+#### 예외 처리하기 (try-catch)
+
+익셉션이 발생하는 코드에 try-catch 구문을 통해 예외를 처리해준다.
+
+```java
+try {
+            value = i / k;
+        } catch (ArithmeticException e) {
+            System.out.println("0으로 나눌 수 없어요");
+            System.out.println(e.toString());
+        }
+```
+
+catch를 통해 익셉션을 발생시킨 객체를 잡아서 e 변수로 참조시킨다.
+
+[결과]
+
+0으로 나눌 수 없어요
+java.lang.ArithmeticException: / by zero
+0
+
+10을 0으로 나누면 결과는 나오지 않는다. 근데 지금처럼 예외처리를 하면 value가 초기값인 0으로 출력된다. 이럴거면 차라리 익셉션이 발생하고 프로그램이 종료된 게 낫다. 에러나는 것보다 못한 결과. 이게 만약 돈과 관련된 프로그램에서 저 value 값이 사용된다고 생각해보면 끔찍한 일이 생길 것이다.
+
+또 다른 문제는 사용자가 원하지 않는 메세지를 출력한다는 것이다. println으로 출력하는 클래스는 다른 사용자가 그 클래스를 사용했을 때에 원하지 않는 메세지가 출력되는 문제가 발생한다.
+
+### 예외 떠넘기기(throws)
+
+```java
+public class Exception01 {
+    public static void main(String[] args) {
+        ExceptionObj1 exobj1 = new ExceptionObj1();
+        try {
+            int value = exobj1.divide(10, 0);
+            System.out.println(value);
+        } catch (ArithmeticException e) {
+            System.out.println("0으로 나눌 수 없습니다.");
+        }
+    }
+}
+
+class ExceptionObj1 {
+    public int divide(int i, int k) throws ArithmeticException{
+        int value = 0;
+        value = i / k;
+  
+        return value;
+    }
+}
+
+```
+
+이렇게 throws로 익셉션을 떠넘기면 사용하는 쪽(호출하는 쪽)에서 try catch 구문으로 예외를 처리해주면 된다. 원치 않는 메세지도 뜨지 않고, javaDoc을 통해 사용할 때 try catch만 해주면 되므로 앞의 예제보다 좋은 코드이다.
+
+
+
+### RuntimeException과 Checked Exception
+
+![](https://postfiles.pstatic.net/MjAyMTA2MDdfMjY5/MDAxNjIzMDc1MzA1MjE0.zdToN8ysCmBoiq_S6xJJotQtdwUa295xL4I0uMXc1Z0g.mBcNzd0chtF1EG_P8wZ0J_kBhwhM8EEX-HLXDto7vmQg.PNG.hj_kim97/123123.PNG?type=w966)
+
+RuntimeException를 상속받고 있으면 다 RuntimeException이라고 할 수 있다. 이전에 발생한 ArithmeticException도 RuntimeException이다.
+
+RuntimeException은 컴파일 시에 오류가 나지 않지만 실행 시에 오류가 발생한다. 실행시에 오류가 나서 프로그램을 죽이는 익셉션을 RuntimeException이라고 한다. 실행 시에 발생하므로 실행을 해보고 경험을 통해 수습하는 방법이 일반적이다.
+
+Checked Exception은 RuntimeException을 상속받지 않은 익셉션을 뜻한다. IOException 등..
+
+```java
+    public static void main(String[] args) {
+        FileInputStream fis = new FileInputStream("Exception01.java");
+    }
+```
+
+FileInputStream을 사용할 때 위처럼만 작성하면 생성자부분에서 에러표시가 발생한다. 에러의 이유를 보면 익셉션 처리를 안해줘서이다.
+
+FileInputStream의 코드를 보자.
+
+```ㅓㅁㅍㅁ
+    public FileInputStream(String name) throws FileNotFoundException {
+        this(name != null ? new File(name) : null);
+    }
+```
+
+FileInputStream은 FileNotFoundException을 throws로 넘기고 있다.
+
+그럼 FileNoFoundException의 코드를 보자.
+
+```ㅓㅁㅍㅁ
+public class FileNotFoundException extends IOException {
+    ...
+}
+```
+
+IOException을 상속받고 있고, IOException은 Exception을 상속받고 있다.
+
+![image.png](assets/image_Exception.png)
+
+RuntimeException을 상속받고 있지 않으므로 CheckedException이다. FileInputStream을 사용할 때에는 반드시 Exception 처리를 해줘야 한다.
+
+* try-catch 예외 처리
+
+```ㅓㅁㅍㅁ
+public static void main(String[] args) {
+        try {
+            FileInputStream fis = new FileInputStream("Exception01.java");
+        } catch (FileNotFoundException e) {
+            System.out.println("파일을 찾을 수 없습니다.");
+        }
+    }
+```
+
+* throws 예외 떠넘기기 - 이 메소드를 호출한 쪽으로 예외처리를 떠넘긴다.
+
+```java
+public static void main(String[] args) throws FileNotFoundException{
+        FileInputStream fis = new FileInputStream("Exception01.java");
+    }
+```
+
+하지만 여기선 main이라서 main을 실행해주는 것은 JVM인데 JVM에게 예외처리를 떠넘기는 것은 무책임한 행동이다.
+
+만약 나만의 Exception을 만들 때 RuntimeException이 좋을까 CheckedException이 좋을까?
+
+컴파일 시에 에러를 띄워주는 CheckedException이 좋다고 생각할 수 있지만 바람직하지 않다. CheckedException이 많아지면 복잡해지고 사용자에게 강요할 것이 많아지므로 되도록이면 RuntimeException을 상속받은 익셉션을 만들어서 사용자가 사용하기 좋도록 만드는 게 좋다.
+
+### 다중 Exception 처리
+
+```ㅓㅁㅍㅁ
+public class Exception01 {
+    public static void main(String[] args) {
+        int[] array1 = {4, 0};   //  1번
+        int[] array2 = {4, 2};   //  2번
+        int[] array3 = {4};   //  3번
+
+        int[] value = null;
+
+        try {
+            value[0] = array1[0] / array1[1];
+        } catch (ArrayIndexOutOfBoundsException aiobe) {    // 3번
+            System.out.println(aiobe.toString());   
+        } catch (ArithmeticException ae) {                  // 1번
+            System.out.println(ae.toString());
+        } catch (Exception e) {                             // 2번
+            System.out.println(e.toString());
+        }
+
+    }
+}
+
+```
+
+1번 : java.lang.ArithmeticException: / by zero
+
+2번 : java.lang.NullPointerException
+
+3번 : java.lang.ArrayIndexOutOfBoundsException: Index 1 out of bounds for length 1
+
+Exception은 모든 익셉션의 조상이라서 다 지우고 Exception만 해줘도 되지 않을까? 그래도 되긴 하지만 특별히 처리하고 싶을 경우에 구체적인 익셉션에 대한 예외 처리를 해줘야 한다. 지금이야 그냥 익셉션 내용만 출력하고 있지만 나중엔 익셉션 케이스별로 다른 동작을 처리하게 설계를 해야할 때가 있다.
+
+그래도 마지막에 꼭 Exception을 예외처리 해줘서 내가 예상하지 못한 익셉션이 발생했을 때를 대비한 방어적인 코드를 적어주는 게 좋다.
+
+### 사용자 정의 Exception
+
+```ㅓㅁㅍㅁ
+public class Exception01 {
+    public static void main(String[] args) {
+        try {
+            ExceptionObj eobj = new ExceptionObj();
+            int value = eobj.divide(10, 0);
+            System.out.println(value);
+        } catch (MyException me) {
+            System.out.println("사용자 정의 익셉션 발생");
+        }
+    }
+}
+
+class ExceptionObj {
+    public int divide(int i, int k) throws MyException {
+        int value = 0;
+        try {
+            value = i / k;
+        } catch (ArithmeticException arithmeticException) {
+            throw new MyException("0으로 나눌 수 없습니다.");
+        }
+        return value;
+    }
+}
+```
+
+가정) 모두를 위해 만든 실용적인 MyUtil 클래스
+
+MyUtil이라는 클래스에는 a, b, c의 유용한 메소드가 있다. a, b, c 안에서 다양한 라이브러리, 클래스들을 이용해 기능을 구현해놨다. 다양한 클래스를 사용한 만큼 다양한 익셉션이 발생할 수 있다. a안에서 발생한 익셉션을 직접 처리하고 싶지 않다면 a메소드를 선언할 때 throws를 통해 다 적어줘야 한다.
+
+`a() throws ..., ..., ..., ...`
+
+이렇게 하면 a를 사용하는 사람이 try-catch로 익셉션을 처리해 사용하면 되는데 매우 귀찮은 과정이다.
+
+그래서 a 메소드 안에서 try-catch 문으로 다양한 익셉션을 e로 받은 후 `throw new MyException("...")` 으로 하나의 새로운 익셉션으로 바꿔준 후 a를 선언할 때 `a() throws MyException`만 해주면 된다.
+
+이렇게 하면 사용하는 입장에서도 간단하게 MyException에 대한 예외처리만 try-catch로 해주면 된다.
+
+## Enum
+
+* JDK 5부터 지원
+* JDK 5이전에 어떤 상수들을 표현하고자 하면 다음과 같은 클래스를 작성했다.
+
+```java
+public class DayType {
+    public final static int SUNDAY = 0;
+    public final static int MONDAY = 1;
+    public final static int TUESDAY = 2;
+    ...
+}
+```
+
+`int today = DayType.SUNDAY;`
+
+문제는 today는 int형이므로 날짜를 나타내는 0~6 사이의 정수 이외에도 다른 정수를 가질 수 있다.
+
+`today=100;`
+
+정해진 값만 변수에 할당할 수 없는 문제가 생기는 것이다. 이런 문제는 타입에 안전하지 않다. 이를 해결하기 위해 등장한 문법이 Enum이다.
+
+* 클래스 생성과 같은 방식
+* com.example.enumtype 패키지
+
+```java
+public enum Day {
+    SUNDAY,
+    MONDAY,
+    TUESDAY,
+    WEDNESDAY,
+    THURSDAY,
+    FRIDAY,
+    SATURDAY
+}
+```
+
+```java
+private Day today;
+today.setDay(Day.SUNDAY);
+```
+
+이렇게 Day 타입으로 변수를 선언해두면 Enum으로 미리 정의해둔 값들만 가질 수 있게 되어 안전하다.
+
+#### switch문에서 사용되는 Enum
+
+```ㅓㅁㅍㅁ
+        Day day = Day.SUNDAY;
+
+        switch (day) {
+            case SUNDAY:
+                System.out.println("일");
+                break;
+            case MONDAY:
+                System.out.println("월");
+                break;
+            default:
+                System.out.println("그 밖의 요일");
+        }        Day day = Day.SUNDAY;
+
+        switch (day) {
+            case SUNDAY:
+                System.out.println("일");
+                break;
+            case MONDAY:
+                System.out.println("월");
+                break;
+            default:
+                System.out.println("그 밖의 요일");
+        }
+```
+
+> switch 문에서 Enum 타입을 사용할 때 Day.SUNDAY가 아닌 그냥 선언해둔 상수 이름 SUNDAY로 접근한다.
+
+#### Enum 타입의 특징
+
+* Enum 생성자와 값 지정 가능
+* Enum은 생성자를 가질 수 있다. 단, 생성자는 private해야 한다.
+* Enum의 생성자는 내부에서만 호출 가능
+
+```java
+public enum Gender {
+    MALE("XY"),
+    FEMAIL("XX");
+  
+    private String chromosome; // 염색체
+
+    private Gender(String chromosome) {
+        this.chromosome = chromosome;
+    }
+}
+```
+
+```java
+        Gender gender = Gender.MALE;
+        System.out.println(gender);
+```
+
+[결과]
+
+MALE
+
+MALE의 chromosome 값을 출력하고 싶다면?
+
+#### Enum에 메소드와 변수 선언
+
+* Enum 안에 메소드와 변수를 선언할 수 있고, Object가 가진 메소드를 오버라이딩할 수도 있다.
+* Gender에 Object가 가진 toString()을 오버라이딩 하자
+
+```ㅓㅁㅍㅁ
+    @Override
+    public String toString() {
+        return "Gender{" +
+                "chromosome='" + chromosome + '\'' +
+                '}';
+    }
+```
+
+이렇게 해준 후 다시 출력해보면 chromosome 값이 출력된다.
+
+Gender{chromosome='XY'}
+
+#### Enum 값 끼리의 비교
+
+* Enum은 상수기 때문에 메모리에 딱 하나만 올라간다. 상수는 변하지 않는 값이라서 메모리에 여러 개 있을 필요가 없기 때문이다. 그래서 비교를 할 때에는 ==을 사용한다.
+* 인스턴스는 매번 생성할 때마다 다른 메모리에 저장되므로 ==를 사용하면 참조변수의 참조값을 비교하고, 메모리 값을 비교하고 싶을 때에는 equals() 메소드를 사용했다.
+
+### EnumMap
+
+* Enum 타입을 키로 사용할 수 있도록 도와주는 클래스
+* java.lang.util.EnumMap
+
+```java
+    public static void main(String[] args) {
+        EnumMap emap = new EnumMap(Gender.class);
+        emap.put(Gender.MALE, "남자!!");
+        emap.put(Gender.FEMAIL, "여자!!");
+
+        System.out.println(emap.get(Gender.MALE));
+        System.out.println(emap.get(Gender.FEMAIL));
+    }
+```
+
+[결과]
+
+남자!!
+여자!!
+
+### EnumSet
+
+Enum 상수를 Set 자료구조로 다루기 위한 메소드를 제공하는 클래스
+
+```java
+    public static void main(String[] args) {
+        EnumSet eset = EnumSet.allOf(Gender.class);
+
+        // eset 모든 원소 출력
+        Iterator<Gender> genderIter = eset.iterator();
+        while (genderIter.hasNext()) {
+            Gender gender = genderIter.next();
+            System.out.println(gender);
+        }
+    }
+```
+
+#### Enum은 인터페이스를 구현할 수 있다.
+
+```java
+public interface Printer {
+    public void print();
+}
+```
+
+```java
+public enum Gender implements Printer{
+    ...
+
+    @Override
+    public void print() {
+        System.out.println("염색체: " + chromosome);
+    }
+}
+```
+
+#### Enum은 추상메소드를 가질 수 있다.
+
+추상 메소드를 가질 경우 상수를 정의할 때 추상메소드를 함께 구현해줘야 한다.
+
+```ㅓㅁㅍㅁ
+public enum Country {
+    KOREA{
+        @Override
+        public void print() {
+            System.out.println("대한민국");
+        }
+    },
+    JAPAN{
+        @Override
+        public void print() {
+            System.out.println("일본");
+        }
+    };
+  
+    public abstract void print();
+}
+
+```
+
+```java
+        Country country = Country.KOREA;
+        country.print();
+```
+
+[결과]
+
+대한민국
+
+KOREA가 오버라이딩한 print() 메소드가 호출된 것을 확인할 수 있다.
+
+#### 그외 Enum 특징
+
+* Enum 객체는 Enum 상수가 처음 호출되거나 참조될 때 생성
+* Enum은 Serializable과 Comparable 인터페이스를 이미 구현하고 있다.
+
+> Serializable: JVM에서 해당 객체를 저장하거나, 다른 서버로 전송할 수 있도록 해준다.
+
+
+
+## Java IO
+
+> IO란? Input과 Output으로 입출력을 뜻한다.
+
+#### Java IO도 객체이다.
+
+* Java IO에서 사용되는 객체는 자바 세상에서 사용되는 객체이다.
+* Java IO가 제공하는 객체는 어떤 대상으로부터 읽어들여, 어떤 대상에게 쓰는 일을 한다.
+
+#### Java IO는 조립되어 사용되도록 만들어졌다.
+
+Decorator 패턴으로 만들어졌다. Decorator은 장식한다는 뜻인데 Java IO에서 장식과 장식 대상은 뭘까?
+
+장식을 한 대상에 또 장식을 하고 또 장식을 하는 패턴을 Decorator 패턴이라고 한다. Component를 상속받은 Decorator는 Component를 가질 수 있다. 즉, Component를 상속받고 있는 것들을 가질 수 있다는 것이다.
+
+![Decorate with decorator design pattern](https://www.javacodegeeks.com/wp-content/uploads/2012/12/decorator-design-pattern1.jpg)
+
+
+
+#### 주인공과 장식을 구분할 수 있어야 한다.
+
+Java IO에서 Component 역할을 수행하는 것은 추상클래스 4가지 InputStream, OutputStream, Reader, Writer이다. new로 인스턴스를 생성할 수 없다.
+
+주인공 역할은 Component를 상속받고 있는 ConcreteComponent이다. Decorator도 Component를 상속받고 있지만 다른점은 생성자에 Component가 들어간다는 것이다. 즉, 장식은 InputStream, OutputStream, Reader, Writer를 생성자에서 받아들이는 것이다.
+
+#### Java IO의 특수한 객체
+
+* System.in: 표준 입력 (InputStream)
+  * 키보드로 입력받을 때
+* System.out: 표준 출력 (PrintStream)
+  * 화면에 출력할 때
+* System.err: 표준 에러 출력 (PrintStream)
+
+#### Java IO의 클래스 상속도
+
+![사용자 삽입 이미지](https://t1.daumcdn.net/cfile/tistory/22513341586A618005)
+
+
+
+#### Java IO 클래스 이름이 중요하다.
+
+![](https://mblogthumb-phinf.pstatic.net/MjAxNjEyMjBfMjY2/MDAxNDgyMjM3NzY0Nzk4.9r6Ilyq1iZBFfBuLldY6HtQ2sO3JDYAex4W2pjtDmksg.wIYaGpn6mGpeYuXauV5a7nDWtGiaLsSHZKTxB3OStzMg.JPEG.jimcarrey23/01.jpg?type=w2)
+
+* ByteArray로 시작할 경우: 입력 클래스의 경우 byte 배열로부터 읽어들이고, 출력 클래스의 경우 클래스 내부의 자료구조에 출력을 한 후 출력된 결과를 byte 배열로 반환
+* CharArray로 시작할 경우: char 배열
+* Filter로 시작할 경우: 보통 직접 사용하는 것보다 상속받아 사용하는데 사용자가 원하는 내용만 필터링할 목적으로 사용
+* Data로 시작할 경우: 다양한 데이터 형을 입출력. 특히 기본형 값(int, float, double 등) 출력하는데 유리
+* Buffered로 시작할 경우: 프로그램에서 Buffer는 메모리를 의미하는데 입출력 시에 병목현상을 줄이고 싶을 경우 사용한다.
+* RandomAccessFile: 입력이나 출력을 모두 할 수 있는 클래스로, 파일에서 임의의 위치의 내용을 읽거나 쓸 수 있는 기능 제공
+
+
+
+#### Java IO 클래스는 생성자가 중요하다.
+
+https://docs.oracle.com/javase/7/docs/api/index.html?java/io/package-summary.html
+
+Java IO 클래스들 중 InputStream, OutputStream, Reader, Writer을 상속받는 클래스들이 있는데 그 중 생성자로 InputStream, OutputStream, Reader, Writer을 받고 있는 클래스들이 있다. 이 클래스들이 장식 역할을 하는 Decorator이고, 그 외의 클래스들이 주인공 역할을 하는 ConcreteComponent이다.
+
+주인공은 어떤 대상으로부터 읽어들이고 쓸 것인가를 결정한다.
+
+**문제) 키보드로부터 한줄씩 입력 받아 화면에 한줄씩 출력하기**
+
+키보드를 사용하려면 System.in을 사용해야 하고, 화면에 출력하려면 System.out을 사용해야 한다. 키보드에서 입력받는다는 것은 문자를 입력받는 것이기 때문에 char 단위 입출력이 필요하다. char 단위 입출력 클래스는 Reader, Writer을 사용해야 한다.
+
+
+**BufferedReader 클래스**
+
+![image.png](assets/image-bfreader.png)
+
+![image.png](assets/image-javaIO.png)
+
+* readline메소드: 한줄 읽기. 더 이상 읽어들일 것이 없으면(EOF) null 반환
+* BufferedReader는 주인공이 아닌 장식 역할이기에 생성자로 Reader를 받아줘야 한다. 그런데! Reader는 추상클래스이므로 Reader의 자식 클래스 중 하나를 받으면 된다.
+
+![image.png](assets/image-reader.png)
+
+* 자식들 중 어떤 클래스를 생성자로 받아야 할까?
+  * BufferedReader를 만드는데 생성자로 또 받을 수 없으므로 탈락
+  * CharArrayReader는 문자로부터 읽어들이는데 우리는 키보드로부터 읽어들이므로 탈락
+  * FilterReader는 마찬가지로 생성자로 Reader를 받아야 하는 장식이므로 탈락
+  * InputStreamReader는 InputStream을 받아들여야 하는 장식. 그런데 우리가 키보드로 받아들이려면 System.in을 사용해야 한다고 했었다. System.in은 InputStream을 상속받는 주인공이므로 BufferReader의 생성자로 알맞다.
+
+한줄 쓰기: PrintStream, PrintWriter
+
+```java
+public class KeyboardIO {
+    public static void main(String[] args) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        String line = null;
+
+        while ((line = br.readLine()) != null) {
+            System.out.println("읽어들인 값: " + line);
+        }
+    }
+}
+```
+
+## File 클래스
+
+java.io.File 클래스는 파일의 크기, 파일의 접근 권한, 파일의 삭제, 이름 변경 등의 작업을 할 수 있게 해준다.
+
+> 디렉토리(폴더)도 파일로 취급한다.
+
+![image.png](assets/image-file.png)
+
+new File 했다고 진짜 파일이 생성되는 것은 아니고 메모리 상에 인스턴스가 생성되는 것이다.
+
+**파일 정보 알려주는 예제**
+
+```java
+import java.io.File;
+import java.io.IOException;
+
+public class FileInfo {
+    public static void main(String[] args) {
+        if (args.length != 1) {
+            System.out.println("사용법: java FileInfo 파일이름");
+            System.exit(0);
+        }
+
+        File f = new File(args[0]);
+        if (f.exists()) { // 파일이 존재할 경우
+            System.out.println("length: " + f.length());
+            System.out.println("canRead: " + f.canRead());
+            System.out.println("canWrite: " + f.canWrite());
+            System.out.println("getAbsolutePath: " + f.getAbsolutePath());
+
+            try {
+                System.out.println("getCanonicalPath: " + f.getCanonicalPath());
+            } catch (IOException e) {
+                System.out.println(e);
+            }
+
+            System.out.println("getName: " + f.getName());
+            System.out.println("getParent: " + f.getParent());
+            System.out.println("getPath: " + f.getPath());
+
+        } else { // 파일이 존재하지 않을 경우
+            System.out.println("파일이 존재하지 않습니다.");
+        } 
+    }
+}
+
+```
+
+**파일 삭제 예제**
+
+```java
+public class FileDelete {
+    public static void main(String[] args) {
+        if (args.length != 1) {
+            System.out.println("사용법: java FileDelete 파일이름");
+            System.exit(0);
+        }
+
+        File f = new File(args[0]);
+        if (f.exists()) { // 파일이 존재할 경우
+            boolean deleteflag = f.delete();
+            if (deleteflag) {
+                System.out.println("파일 삭제 성공");
+            } else {
+                System.out.println("파일 삭제 실패");
+            }
+        } else {
+            System.out.println("파일이 존재하지 않습니다.");
+        }
+    }
+}
+
+```
+
+실제로 파일을 생성 후 아규먼트로 파일경로를 넘겨주면 잘 삭제가 된다. 사실 이건 파일 작성자와 코드 실행자가 같기 때문에 권한이 맞아서 된 것이다.
+
+root로 사용자 권한을 바꾼 후 파일을 생성해서 실행해보면 실패하는 것을 확인할 수 있다.
+
+
+
+**파일 목록 예제**
+
+```java
+public class FileList {
+    public static void main(String[] args) {
+        File file = new File("/tmp");
+        File[] files = file.listFiles();
+
+        for (File i : files) {
+            System.out.println(i.getName());
+        }
+    }
+}
+```
+
+"/tmp"가 아닌 "/tmp/myfile01.txt"처럼 폴더형식이 아니라면 NullPointerException이 뜬다. 그래서 방어적인 프로그래밍을 위해 디렉토리인지 확인하는 if문을 넣어주면 좋다.
+
+디렉토리 안의 파일이 있을 수 있고, 폴더가 있을 수도 있으므로 폴더일 때는 목록, 파일일 때는 파일 이름이 출력되도록 재귀를 이용해 다음처럼 코딩할 수 있다.
+
+```java
+public class FileList {
+    public static void main(String[] args) {
+        File file = new File("/tmp");
+
+        printFile(file);
+    }
+
+    private static void printFile(File file) {
+        if (file.isDirectory()) {
+            File[] files = file.listFiles();
+            for (int i = 0; i < files.length; i++) {
+                System.out.println("[dir] - " + files[i]);
+                printFile(files[i]);
+            }
+        } else {
+            System.out.println(file.getName());
+        }
+    }
+}
+
+```
+
+### File 클래스를 이용한 임시 파일의 생성과 삭제
+
+/tmp 폴더에는 임시파일이 많이 만들어졌다가 사라진다. 프로그램을 실행하다 보면 실행되는 동안에만 필요한 파일들이 생길 수 있는데 이런 파일들을 임시파일이라고 한다.
+
+**임시파일 생성하기**
+
+```
+File.createTempFile("tmp_", ".dat");
+````
+
+prefix이 tmp_, sufix이 ".dat"인 임시파일을 생성했다. 실제로 absolutePath를 출력해본 후 터미널에서 `ls -la` 명령어로 확인할 수 있다.
+
+![image.png](assets/image-temp.png)
+
+임시파일은 실행중에만 잠시 필요하고 나중엔 필요 없으므로 삭제해주는 게 좋다.
+
+
+
+**임시파일 생성 후 삭제 예제**
+
+```java
+public static void main(String[] args) {
+        try {
+            File f = File.createTempFile("tmp_", ".dat");
+            System.out.println(f.getAbsolutePath());
+            System.out.println("60초 정지");
+            try {
+                Thread.sleep(60000);     // 60초간 프로그램 정지
+            } catch (InterruptedException e1) {
+                System.out.println(e1);
+            }
+            f.deleteOnExit();    // JVM이 종료될 때 임시파일 자동 삭제
+        } catch (IOException e) {
+            System.out.println(e);
+        }
+    }
+```
+
+코드를 실행해보면 60초간은 프로그램이 멈춰있으므로 생성한 파일을 확인할 수 있지만 60초가 지나면 JVM이 종료되면서 임시파일이 삭제되는 것을 확인할 수 있다.
+
+![image.png](assets/image-temp_.png)
+
+
+
+### Byte Stream
+
+Byte 단위로 입력받고 출력하는 클래스는 전부 InputStream과 OutputStream의 자손들이다.
+
+![image.png](assets/image-byte_stream.png)
+
+### InputStream 중요 메소드
+
+* `int available() throws IOException`: 현재 읽을 수 있는 바이트 수 반환
+* `void close() throws IOException`: 입력 스트림 닫기
+* `int read() throws IOException`: 입력 스트림에서 한 바이트를 읽어서 int 값으로 반환한다. 더 이상 읽어 들여야 할 내용이 없을 경우 -1 반환
+* `int read(byte buf[]) throws IOException`: 입력 스트림에서 buf[] 크기만큼을 읽어 buf에 저장하고 읽은 바이트 수를 반환한다. 더 이상 읽어 들여야 할 내용이 없을 경우 -1 반환
+* `int skip(long numBytes) throws IOException`: numBytes로 지정된 바이트를 무시하고, 무시된 바이트 수를 반환한다.
+
+이 중 가장 중요한 메소드는 추상 메소드인 read() 메소드이다.
+
+```java
+public static void main(String[] args) {
+        InputStream in = null;
+        try {
+            int data = in.read();
+        } catch (IOException exception) {
+            System.out.println("io 오류: " + exception);
+        } finally {
+            try {
+                in.close();
+            } catch (Exception e2) {
+                System.out.println("io 오류: " + e2);
+            }
+        }
+    }
+```
+
+예제를 보면 null인 스트림을 read()로 한 바이트를 읽고 있다.
+
+**그런데 바이트로 읽어들이는 메소드를 왜 int형 변수 data로 받을까?**
+
+1byte는 8bit이므로 00000000 ~ 11111111까지 표현할 수 있다. read() 메소드가 읽어들일 수 있는 값 또한 같은 범위 중 한 값이다. 1byte씩 파일을 읽어들이는데 만약 파일의 크기를 모른다면 더 이상 읽을 것이 없을 때(EOF)까지 읽어들인다. EOF는  00000000 ~ 11111111 범위 내에서 표현할 수 없다. 그래서 int에 1byte 값을 담은 것이다.(그릇을 큰 걸 쓰자)
+
+int는 4byte라서 EOF를 -1이라고 했을 때 2의 보수값인 11111111 11111111 11111111 11111111으로 표현이 가능해지는 것이다.
+
+> EOF값인 -1을 표현하기 위해 4byte를 표현할 수 있는 int형으로 반환한다!!
+
+
+
+
+
+문제
+
+1. txt 파일로부터 한줄씩 입력받아 화면에 출력
+
+파일로부터 읽기: BufferedReader(FileReader)의 readline()
+
+화면에 출력: System.out
+
+```java
+    public static void main(String[] args) throws IOException {
+        // 파일 객체 생성
+        File f = new File("/tmp/Sample.txt");
+
+        // BufferedReader의 생성자로 넣어줄 InputStream 생성
+        FileReader fr = new FileReader(f);
+
+        BufferedReader br = new BufferedReader(fr);
+        String line = "";
+        while ((line = br.readLine()) != null) {
+            System.out.println(line);
+        }
+
+    }
+```
+
+2. 키보드로부터 한줄씩 입력받아 파일에 출력 (파일명은 아규먼트로 받아들인다)
+
+키보드로부터 한줄씩 입력: BufferdReader(System.in)의 readline()
+
+파일에 출력: BufferdWriter(FileWriter)의 write
+
+```java
+    public static void main(String[] args) throws IOException {
+        // 키보드로부터 한줄씩 입력받기
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        String s = "";
+
+        // 파일 객체 생성
+        File f = new File(args[0]);
+
+        // BufferedWrite 생성자에 넣을 OutputStream 생성
+        FileWriter fw = new FileWriter(f);
+
+        // BufferedWrite 생성
+        BufferedWriter bw = new BufferedWriter(fw);
+
+        while (true) {
+            s = br.readLine();
+            if (s.equals("q")) {
+                break;
+            }
+            bw.write(s+"\n");
+        }
+
+        bw.flush();
+        bw.close();
+    }
+```
+
+3. txt 파일로부터 한줄씩 입력받아 다른 파일에 한줄씩 출력한다.
+
+txt 파일로부터 입력: FileReader
+
+한줄씩 입력: BufferedReader의 readline()
+
+다른 파일에 출력: FileWriter
+
+한줄씩 출력: BufferedWriter의 writer()
+
+```java
+    public static void main(String[] args) throws IOException {
+        // 입력받을 파일 객체 생성
+        File f1 = new File("/tmp/Sample.txt");
+
+        // FileReader 생성 - 주인공
+        FileReader fr = new FileReader(f1);
+
+        // BufferedReader 생성 - 데코레이터
+        BufferedReader br = new BufferedReader(fr);
+
+        // 출력할 파일 객체 생성
+        File f2 = new File("/tmp/Sample02.txt");
+
+        // FileWriter 생성 - 주인공
+        FileWriter fw = new FileWriter(f2);
+
+        // BufferedWriter 생성 - 데코레이터
+        BufferedWriter bw = new BufferedWriter(fw);
+
+        String line = "";
+        while ((line = br.readLine()) != null) {
+            bw.write(line + "\n");
+        }
+
+        bw.flush();
+        bw.close();
+    }
+```
+
+#### 파일 쓰기
+
+```java
+        PrintWriter out = new PrintWriter(new OutputStreamWriter(new FileOutputStream("/tmp/my.txt")));
+```
+
+* FileOutputStream
+  * write(int) 메소드로 int의 마지막 byte만 저장
+* OutputStreamWriter
+  * 생성자: FileOutputStream
+  * Writer이기 때문에 int의 마지막 char만 저장
+* PrintWriter
+  * 생성자: OutputStreamWriter
+  * println(문자열) 메소드로 문자열 출력
+
+#### 파일 읽기
+
+FileWriter로 한글자씩 쓸 때 영어로 쓰면 문자 개수만큼의 byte 용량을 차지하고, 한글로 쓰면 한글자 당 3byte씩 용량을 차지하는 것을 확인했다. 한글은 2byte씩 저장하는 것으로 알고 있었지만 자바의 유니코드는 종류가 다양하기에 현재는 3byte씩 처리하는 인코딩을 사용중인 것이다.
+
+![IMG_23431C1B4DD81.jpeg](assets/IMG_23431C1B4DD8-1.jpeg)
+
+읽어야할 대상이 파일이라고 하면 FileInputStream의 read() 메소드를 통해 1byte씩 읽어들인다.
+
+InputStreamReader는 생성자로 InputStream 즉, FileInputStream을 받아서 read() 메소드를 통해 2byte씩 읽어들인다.(Reader이므로 char 읽어들이기 때문에 2byte씩!) 내부적으로는 FileInputStream의 read() 메소드를 2번 실행하는 것이다.
+
+BufferedReader는 생성자에 Reader를 받는데 여기선 InputStreamReader를 받는다. buffer를 가지고 있어서 readLine()을 통해 한줄을 읽을 수 있다. 내부적으로는 readLine()이 InputStreamReader의 read()메소드는 buffer에 한줄이 다 찰때까지 호출해서 읽어온다.
+
+```java
+    public static void main(String[] args) throws IOException {
+        BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream("/tmp/my.txt")));
+
+        String line = "";
+        while ((line = in.readLine()) != null) {
+            System.out.println(line);
+        }
+
+        in.close();
+    }
+```
+
+#### 파일과 폴더 다이어그램
+
+![image.png](assets/image-gram.png)
+
+폴더는 파일을 가질 수 있고, 폴더도 가질 수 있다.
+
+**다른 표현법**
+
+파일과 폴더의 공통적인 부분을 Node라고 하면 아래처럼 표현해도 위와 동일하다.
+
+![IMG_9BEA61BE97A81.jpeg](assets/IMG_9BEA61BE97A8-1.jpeg)
+
+이런식으로 표현하는 방법을 composite 패턴이라고 부른다.
+
+#### Composite 패턴
+
+단일 객체와 그 객체들을 가지는 집합 객체를 같은 타입으로 취급하며, 트리 구조로 객체들을 엮는 패턴이다.
+
+즉, 위의 파일과 폴더 관계를 적용시켜보면 단일객체는 파일을 의미하고 그 객체들을 가지는 집합 객체는 폴더를 의미한다. 파일과 폴더 둘을 같은 타입으로 취급하는 것이다.
+
+같은 타입으로 취급한다는 것은 같은 인터페이스를 가지고 있다는 말과 같다.
+
+![image.png](assets/image-composite.png)
+
+Composite 패턴에서는 Interface를 Component라고 하고 이를 상속받은 객체를 Leaf, Composite라고 부른다. 이 중 Composite에는 Object의 리스트가 들어가는데 이 안에는 Component가 들어간다. Component가 들어간다는 것은 Leaf 객체가 들어갈 수도 있고, Composite가 들어갈 수도 있는 것이다.
+
+![image.png](assets/image_composite.png)
+
+여기서 단일 객체를 Leaf라고 표현할 이유는 Composite 패턴이 트리 구조를 나타내기 좋기 때문이다.
+
+![image.png](assets/image-tree.png)
+
+```java
+public class CompositeExam {
+    public static void main(String[] args) {
+        Composite c1 = new Composite();
+        c1.add(new Leaf());
+        c1.add(new Leaf());
+
+        Composite c0 = new Composite();
+        c0.add(new Leaf());
+        c0.add(c1);
+
+        c0.fn();
+    }
+}
+
+interface Component {
+    public void fn();
+}
+
+class Leaf implements Component {
+
+    @Override
+    public void fn() {
+        System.out.println("Leaf");
+    }
+}
+
+class Composite implements Component {
+
+    private List<Component> list = new ArrayList<Component>();
+
+    @Override
+    public void fn() {
+        System.out.println("Composite");
+        for (Component c : list) {
+            c.fn();
+        }
+    }
+
+    public void add(Component component) {
+        list.add(component);
+    }
+
+    public void remove(Component component) {
+        list.remove(component);
+    }
+}
+```
+
+트리 구조가 아주 복잡할 때 트리의 루트에서 함수 하나만 정의해주면 Composite 패턴에 따라서 Leaf까지 그 함수가 자동으로 호출된다는 장점이 있다.
+
+**고양이 강아지 예제**
+
+- zoo 그룹
+  - cat 3마리 그룹
+  - dog 2마리 그룹
+
+![image.png](assets/image-animal.png)
+
+```java
+public class CompositeExam2 {
+    public static void main(String[] args) {
+        AnimalGroup cats = new AnimalGroup();
+        cats.add(new Cat());
+        cats.add(new Cat());
+        cats.add(new Cat());
+
+        AnimalGroup dogs = new AnimalGroup();
+        dogs.add(new Dog());
+        dogs.add(new Dog());
+
+        AnimalGroup zoo = new AnimalGroup();
+        zoo.add(cats);
+        zoo.add(dogs);
+
+        zoo.speak();
+
+    }
+}
+
+interface Animal {
+    public void speak();
+}
+
+class Cat implements Animal {
+    @Override
+    public void speak() {
+        System.out.println("야옹");
+    }
+}
+
+class Dog implements Animal {
+    @Override
+    public void speak() {
+        System.out.println("멍멍");
+    }
+}
+
+class AnimalGroup implements Animal {
+    List<Animal> animals = new ArrayList<Animal>();
+
+    public void add(Animal animal) {
+        animals.add(animal);
+    }
+
+    public void remove(Animal animal) {
+        animals.remove(animal);
+    }
+
+    @Override
+    public void speak() {
+        System.out.println("AnimalGroup speaking...");
+        for (Animal animal : animals) {
+            animal.speak();
+        }
+    }
+}
+
+```
+
+#### Decorator속 Composite 패턴
+
+자바 IO는 Decorator 패턴으로 만들어졌다. Decorator 패턴에서도 composite 패턴을 발견할 수 있다.
+
+![image.png](assets/image-deco.png)
+
+#### 문제) 케이크를 데코레이터 패턴으로 만들어보기
+
+* CakeComponent
+  * 주인공: CakeConcreteComponent
+  * 데코레이터: CakeComponentDecorator
+    * CakeSheet
+      * RoundSheet
+      * RecSheet
+    * CakeCream
+      * Choco
+      * Strawberry
+
+![image.png](assets/image-cake.png)
+
+Component: CakeComponent
+
+```java
+public interface CakeComponent {
+    String decorate();
+}
+```
+
+주인공: CakeConcreteComponent
+
+```java
+public class CakeConcreteComponent implements CakeComponent{
+    @Override
+    public String decorate() {
+        return "케이크";
+    }
+}
+```
+
+데코레이터: CakeComponentDecorator
+
+```java
+abstract class CakeComponentDecorator implements CakeComponent {
+    private final CakeComponent cakeComponent;
+
+    CakeComponentDecorator(CakeComponent cakeComponent) {
+        this.cakeComponent = cakeComponent;
+    }
+
+    @Override
+    public String decorate() {
+        return cakeComponent.decorate();
+    }
+
+}
+```
+
+데코레이터들
+
+```java
+public class RecSheet extends Sheet{
+
+    RecSheet(CakeComponent cakeComponent) {
+        super(cakeComponent);
+    }
+
+    @Override
+    public String decorate() {
+        return "네모 " + super.decorate();
+    }
+}
+
+public class ChocoCream extends Cream{
+
+    ChocoCream(CakeComponent cakeComponent) {
+        super(cakeComponent);
+    }
+
+    @Override
+    public String decorate() {
+        return "초코 " + super.decorate();
+    }
+}
+
+public class ButterCream extends Cream{
+
+    ButterCream(CakeComponent cakeComponent) {
+        super(cakeComponent);
+    }
+
+    @Override
+    public String decorate() {
+        return "버터 " + super.decorate();
+    }
+}
+
+public abstract class Cream extends CakeComponentDecorator{
+    Cream(CakeComponent cakeComponent) {
+        super(cakeComponent);
+    }
+
+}
+
+public abstract class Sheet extends CakeComponentDecorator{
+
+    Sheet(CakeComponent cakeComponent) {
+        super(cakeComponent);
+    }
+
+}
+
+public class RoundSheet extends Sheet{
+
+    RoundSheet(CakeComponent cakeComponent) {
+        super(cakeComponent);
+    }
+
+    @Override
+    public String decorate() {
+        return "둥근 " + super.decorate();
+    }
+}
+```
+
+케이크 만들기 테스트
+
+```java
+public static void main(String[] args) {
+        // 버터 둥근 케이크
+        CakeComponent c1 = new ButterCream(new RoundSheet(new CakeConcreteComponent()));
+        String s1 = c1.decorate();
+        System.out.println(s1);
+
+        // 네모 초코 케이크
+        CakeComponent c2 = new RecSheet(new ChocoCream(new CakeConcreteComponent()));
+        String s2 = c2.decorate();
+        System.out.println(s2);
+    }
+```
+
+[결과]
+
+버터 둥근 케이크
+네모 초코 케이크

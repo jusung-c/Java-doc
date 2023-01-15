@@ -11,5 +11,10 @@ public class CakeMain {
         CakeComponent c2 = new RecSheet(new ChocoCream(new CakeConcreteComponent()));
         String s2 = c2.decorate();
         System.out.println(s2);
+
+        CakeComponent c3 = new ChocoCream(new ChocoCream(new ChocoCream(new CakeConcreteComponent())));
+        String s3 = c3.decorate();
+        System.out.println(s3);
+
     }
 }
