@@ -2244,8 +2244,6 @@ Collections 클래스의 sort 메소드를 이용해 List의 객체들을 정렬
 * Collections.shuffle();
   * 자료들을 섞어주는 메소드. 출력할 때마다 순서가 다르게 나온다.
 
-
-
 ### JavaDoc 주석문
 
 * /** ... */
@@ -2275,8 +2273,6 @@ public class List01 {
 5. other command line arguments에 다음 입력`-encoding UTF-8 -charset UTF-8 -docencoding UTF-8`
 
 > 주석문을 잘 작성하는 방법은 주석문을 작성하지 않는 것이다.. 최소한으로 작성하자
-
-
 
 ## 예외(Exception) 처리
 
@@ -2312,7 +2308,6 @@ class ExceptionObj1 {
 0으로 나눌 수는 없기 때문에 java.lang.ArithmeticException 익셉션이 발생하면서 프로그램이 강제종료 된다.
 
 익셉션을 발생할 때에는 JVM이 ArithmeticException 인스턴스 객체를 만들어서 발생해준다.
-
 
 #### 예외 처리하기 (try-catch)
 
@@ -2366,8 +2361,6 @@ class ExceptionObj1 {
 ```
 
 이렇게 throws로 익셉션을 떠넘기면 사용하는 쪽(호출하는 쪽)에서 try catch 구문으로 예외를 처리해주면 된다. 원치 않는 메세지도 뜨지 않고, javaDoc을 통해 사용할 때 try catch만 해주면 되므로 앞의 예제보다 좋은 코드이다.
-
-
 
 ### RuntimeException과 Checked Exception
 
@@ -2739,8 +2732,6 @@ KOREA가 오버라이딩한 print() 메소드가 호출된 것을 확인할 수 
 
 > Serializable: JVM에서 해당 객체를 저장하거나, 다른 서버로 전송할 수 있도록 해준다.
 
-
-
 ## Java IO
 
 > IO란? Input과 Output으로 입출력을 뜻한다.
@@ -2757,8 +2748,6 @@ Decorator 패턴으로 만들어졌다. Decorator은 장식한다는 뜻인데 J
 장식을 한 대상에 또 장식을 하고 또 장식을 하는 패턴을 Decorator 패턴이라고 한다. Component를 상속받은 Decorator는 Component를 가질 수 있다. 즉, Component를 상속받고 있는 것들을 가질 수 있다는 것이다.
 
 ![Decorate with decorator design pattern](https://www.javacodegeeks.com/wp-content/uploads/2012/12/decorator-design-pattern1.jpg)
-
-
 
 #### 주인공과 장식을 구분할 수 있어야 한다.
 
@@ -2778,8 +2767,6 @@ Java IO에서 Component 역할을 수행하는 것은 추상클래스 4가지 In
 
 ![사용자 삽입 이미지](https://t1.daumcdn.net/cfile/tistory/22513341586A618005)
 
-
-
 #### Java IO 클래스 이름이 중요하다.
 
 ![](https://mblogthumb-phinf.pstatic.net/MjAxNjEyMjBfMjY2/MDAxNDgyMjM3NzY0Nzk4.9r6Ilyq1iZBFfBuLldY6HtQ2sO3JDYAex4W2pjtDmksg.wIYaGpn6mGpeYuXauV5a7nDWtGiaLsSHZKTxB3OStzMg.JPEG.jimcarrey23/01.jpg?type=w2)
@@ -2790,8 +2777,6 @@ Java IO에서 Component 역할을 수행하는 것은 추상클래스 4가지 In
 * Data로 시작할 경우: 다양한 데이터 형을 입출력. 특히 기본형 값(int, float, double 등) 출력하는데 유리
 * Buffered로 시작할 경우: 프로그램에서 Buffer는 메모리를 의미하는데 입출력 시에 병목현상을 줄이고 싶을 경우 사용한다.
 * RandomAccessFile: 입력이나 출력을 모두 할 수 있는 클래스로, 파일에서 임의의 위치의 내용을 읽거나 쓸 수 있는 기능 제공
-
-
 
 #### Java IO 클래스는 생성자가 중요하다.
 
@@ -2804,7 +2789,6 @@ Java IO 클래스들 중 InputStream, OutputStream, Reader, Writer을 상속받�
 **문제) 키보드로부터 한줄씩 입력 받아 화면에 한줄씩 출력하기**
 
 키보드를 사용하려면 System.in을 사용해야 하고, 화면에 출력하려면 System.out을 사용해야 한다. 키보드에서 입력받는다는 것은 문자를 입력받는 것이기 때문에 char 단위 입출력이 필요하다. char 단위 입출력 클래스는 Reader, Writer을 사용해야 한다.
-
 
 **BufferedReader 클래스**
 
@@ -2917,8 +2901,6 @@ public class FileDelete {
 
 root로 사용자 권한을 바꾼 후 파일을 생성해서 실행해보면 실패하는 것을 확인할 수 있다.
 
-
-
 **파일 목록 예제**
 
 ```java
@@ -2977,8 +2959,6 @@ prefix이 tmp_, sufix이 ".dat"인 임시파일을 생성했다. 실제로 absol
 
 임시파일은 실행중에만 잠시 필요하고 나중엔 필요 없으므로 삭제해주는 게 좋다.
 
-
-
 **임시파일 생성 후 삭제 예제**
 
 ```java
@@ -3002,8 +2982,6 @@ public static void main(String[] args) {
 코드를 실행해보면 60초간은 프로그램이 멈춰있으므로 생성한 파일을 확인할 수 있지만 60초가 지나면 JVM이 종료되면서 임시파일이 삭제되는 것을 확인할 수 있다.
 
 ![image.png](assets/image-temp_.png)
-
-
 
 ### Byte Stream
 
@@ -3047,10 +3025,6 @@ public static void main(String[] args) {
 int는 4byte라서 EOF를 -1이라고 했을 때 2의 보수값인 11111111 11111111 11111111 11111111으로 표현이 가능해지는 것이다.
 
 > EOF값인 -1을 표현하기 위해 4byte를 표현할 수 있는 int형으로 반환한다!!
-
-
-
-
 
 문제
 
@@ -3487,3 +3461,980 @@ public static void main(String[] args) {
 
 버터 둥근 케이크
 네모 초코 케이크
+
+## CompositePattern 실습 - 파일과 폴더
+
+![IMG_578C4FC9C1EC1.jpeg](assets/IMG_578C4FC9C1EC-1.jpeg)
+
+파일과 폴더의 공통점을 FileComponent로 뽑아내서 인터페이스 또는 추상클래스로 만든 후 폴더와 파일이 상속받도록 했다.
+
+폴더는 FileComponenet를 상속받고 있지만 소유할 수도 있다. FileComponent는 인터페이스이거나 추상클래스이므로 인스턴스가 될 수 없는데 소유할 수 있다고 했으므로 FileComponent를 상속받은 폴더나 파일을 소유할 수 있다는 뜻이다.
+
+#### FileComponent - Node
+
+```java
+public abstract class Node {
+    private String name;
+
+    public Node(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public abstract long getSize();
+    public abstract boolean isFolder();
+}
+
+```
+
+#### File
+
+```java
+public class File extends Node{
+    private long size;
+
+    public File(String name, long size) {
+        super(name);
+        this.size = size;
+    }
+
+    @Override
+    public long getSize() {
+        return this.size;
+    }
+
+    @Override
+    public boolean isFolder() {
+        return false;
+    }
+}
+
+```
+
+#### Folder
+
+```java
+public class Folder extends Node {
+    private List<Node> nodes;
+
+    public Folder(String name) {
+        super(name);
+        nodes = new ArrayList<>();
+    }
+
+    public void add(File file) {
+        nodes.add(file);
+    }
+
+    public void add(Folder folder) {
+        nodes.add(folder);
+    }
+
+    @Override
+    public long getSize() {
+        long total = 0;
+        for (int i = 0; i < nodes.size(); i++) {
+            total += nodes.get(i).getSize();
+        }
+        return total;
+    }
+
+    @Override
+    public boolean isFolder() {
+        return true;
+    }
+}
+
+```
+
+#### main클래스
+
+```java
+public static void main(String[] args) {
+        File f1 = new File("file1", 10L);
+        File f2 = new File("file2", 20L);
+        File f3 = new File("file3", 30L);
+
+
+        Folder folder1 = new Folder("folder1");
+        Folder folder2 = new Folder("folder2");
+
+        folder1.add(f1);
+        folder1.add(folder2);
+
+        folder2.add(f2);
+        folder2.add(f3);
+
+        System.out.println(folder1.getSize());
+
+    }
+```
+
+[결과]
+
+60
+
+### DecoratorPattern 실습 - ShapeDecorator
+
+![IMG_95D65F73A3801.jpeg](assets/IMG_95D65F73A380-1.jpeg)
+
+Shape
+
+```java
+public abstract class Shape {
+    public abstract void draw();
+}
+```
+
+Circle
+
+```java
+public class Circle extends Shape {
+    @Override
+    public void draw() {
+        System.out.println("Shape: Circle");
+    }
+}
+```
+
+Rectangle
+
+```java
+public class Rectangle extends Shape {
+    @Override
+    public void draw() {
+        System.out.println("Shape: Rectangle");
+    }
+}
+```
+
+ShapeDecorator
+
+```java
+public abstract class ShapeDecorator extends Shape {
+    protected Shape decoratorShape;
+
+    public ShapeDecorator(Shape decoratorShape) {
+        this.decoratorShape = decoratorShape;
+    }
+
+    @Override
+    public void draw() {
+        decoratorShape.draw();
+    }
+}
+```
+
+RedShapeDecorator
+
+```java
+public class RedShapeDecorator extends ShapeDecorator {
+
+    public RedShapeDecorator(Shape decoratorShape) {
+        super(decoratorShape);
+    }
+
+    @Override
+    public void draw() {
+        setRedBorder(decoratorShape);
+    }
+
+    private void setRedBorder(Shape decoratedShape) {
+        System.out.println("Red ============ Start");
+        decoratorShape.draw();
+        System.out.println("Red ============ Start");
+    }
+}
+```
+
+GreenShapeDecorator
+
+```java
+public class GreenShapeDecorator extends ShapeDecorator {
+
+    public GreenShapeDecorator(Shape decoratorShape) {
+        super(decoratorShape);
+    }
+
+    @Override
+    public void draw() {
+        setRedBorder(decoratorShape);
+    }
+
+    private void setRedBorder(Shape decoratedShape) {
+        System.out.println("Green ============ Start");
+        decoratorShape.draw();
+        System.out.println("Green ============ Start");
+    }
+}
+```
+
+main
+
+```java
+public static void main(String[] args) {
+        Circle c = new Circle();
+
+        RedShapeDecorator redShapeDecorator = new RedShapeDecorator(c);
+
+        GreenShapeDecorator greenShapeDecorator = new GreenShapeDecorator(redShapeDecorator);
+
+        // greenShapeDecorator.draw();
+
+        Shape shape = new GreenShapeDecorator(new RedShapeDecorator(new Rectangle()));
+
+    }
+```
+
+[결과]
+
+```
+Green ============ Start
+Red ============ Start
+Shape: Circle
+Red ============ Start
+Green ============ Start
+```
+
+전의 예제 InputStream와 비교해보면 Shape가 InputStream(추상클래스) 역할, Rectangle, Circle이 FileInputStream 역할, RedShapeDecorator, GreenShapeDecorator이 DataInputStream 역할을 한다.
+
+```java
+InputStream in = new DataInputStream(new FileInputStream("a.txt"));
+```
+
+
+
+
+## DataInputStream, DataOutputStream
+
+* 기본형 타입과 문자열을 읽고 쓸 수 있다.
+
+```java
+public static void main(String[] args) throws IOException {
+        // 이름, 국어점수, 영어점수, 수학점수, 평균점수를 /tmp/score.dat 파일에 저장하시오.
+        String name = "kim";
+        int kor = 90;
+        int eng = 50;
+        int math = 70;
+
+        double total = kor + eng + math;
+        double avg = total / 3.0;
+
+        DataOutputStream out = new DataOutputStream(new FileOutputStream("/tmp/score.dat"));
+        out.writeUTF(name);
+        out.writeInt(kor);
+        out.writeInt(eng);
+        out.writeInt(math);
+        out.writeDouble(total);
+        out.writeDouble(avg);
+        out.close();
+
+
+        // 파일에서 읽어오기
+        DataInputStream dataInputStream = new DataInputStream(new FileInputStream("/tmp/score.dat"));
+
+        System.out.println(dataInputStream.readUTF());
+        System.out.println(dataInputStream.readInt());
+        System.out.println(dataInputStream.readInt());
+        System.out.println(dataInputStream.readInt());
+        System.out.println(dataInputStream.readDouble());
+        System.out.println(dataInputStream.readDouble());
+
+
+    }
+```
+
+## ByteArrayInputStream, ByteArrayOutputStream
+
+* byte[]에 데이터를 읽고 쓰기
+
+```java
+public static void main(String[] args) throws IOException {
+
+        // 쓰기
+        int data1 = 1;
+        int data2 = 2;
+
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        out.write(data1);   // data1의 마지막 1byte 저장
+        out.write(data2);
+        out.close();
+
+        byte[] array = out.toByteArray();
+
+
+        // 읽기
+        ByteArrayInputStream in = new ByteArrayInputStream(array);
+        int read1 = in.read();
+        int read2 = in.read();
+        int read3 = in.read();  // -1
+        in.close();
+
+        System.out.println(read1);
+        System.out.println(read2);
+        System.out.println(read3);
+    }
+```
+
+## CharArrayReader, CharArrayWriter
+
+* char[]에 데이터 읽고 쓰기
+
+```java
+public static void main(String[] args) throws IOException {
+        char a = 'a';
+        char b = 'b';
+        char c = 'c';
+
+        CharArrayWriter cw = new CharArrayWriter();
+        cw.write(a);
+        cw.write(b);
+        cw.write(c);
+        cw.close();
+
+        char[] arr = cw.toCharArray();
+        String str = cw.toString();
+
+        CharArrayReader cr = new CharArrayReader(arr);
+        char read1 = (char) cr.read();
+        char read2 = (char) cr.read();
+        char read3 = (char) cr.read();
+
+        System.out.println(read1);
+        System.out.println(read2);
+        System.out.println(read3);
+    }
+```
+
+## StringReader, StringWriter
+
+* 문자열 읽고 쓰기
+
+```java
+public static void main(String[] args) throws IOException {
+        StringWriter sw = new StringWriter();
+        sw.write("hello");
+        sw.write("world");
+        sw.write("!!!");
+        sw.close();
+
+        String str = sw.toString();
+
+        StringReader sr = new StringReader("helloworld!!!");
+        int ch = -1;
+
+        while ((ch = sr.read()) != -1) {
+            System.out.print((char)ch);
+        }
+
+        sr.close();
+    }
+```
+
+## ObjectInputStream, ObjectOutputStream
+
+* 직렬화 가능한 대상을 읽고 쓰기
+* 직렬화란? 객체를 직렬화하여 전송 가능한 형태로 만드는 것
+* 직렬화 가능한 대상이란? 기본형 타입 or java.io.Serializable 인터페이스를 구현하고 있는 객체
+  * java.io.Serializable 인터페이스는 메소드가 하나도 없어서 구현만 해주면 된다.
+  * 이렇게 메소드가 없는 인터페이스를 마크(표시) 인터페이스라고 한다.
+
+Serializable을 구현한 User 객체 (전송할 객체)
+
+```java
+public class User implements Serializable {
+    private String email;
+    private String name;
+    private int birthYear;
+
+    public User(String email, String name, int birthYear) {
+        this.email = email;
+        this.name = name;
+        this.birthYear = birthYear;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getBirthYear() {
+        return birthYear;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "email='" + email + '\'' +
+                ", name='" + name + '\'' +
+                ", birthYear=" + birthYear +
+                '}';
+    }
+}
+```
+
+User 객체가 직렬화 가능하다는 것은 그 필드들도 직렬화 가능해야 한다. String을 뜯어보면 java.io.Serializable 인터페이스를 구현하고 있고, int는 기본형 타입이므로 직렬화 가능하다.
+
+```java
+public static void main(String[] args) throws IOException, ClassNotFoundException {
+        // 직렬화 가능한 객체 생성
+        User user = new User("lee@naver.com", "lee", 1999);
+
+        // 객체 저장
+        ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("/tmp/user.dat"));
+        out.writeObject(user);
+        out.close();
+
+        // 객체 읽어오기
+        ObjectInputStream in = new ObjectInputStream(new FileInputStream("/tmp/user.dat"));
+        User u = (User) in.readObject();
+        in.close();
+
+        System.out.println(u);
+    }
+```
+
+ArrayList도 Serializable을 구현한 것이므로 직렬화 가능하다.
+
+```java
+public static void main(String[] args) throws IOException, ClassNotFoundException {
+        User u1 = new User("lee@naver.com", "lee", 1999);
+        User u2 = new User("kim@naver.com", "kim", 2003);
+        User u3 = new User("park@naver.com", "park", 2010);
+
+        ArrayList<User> users = new ArrayList<>();
+
+        users.add(u1);
+        users.add(u2);
+        users.add(u3);
+
+        ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("/tmp/userlist.dat"));
+        out.writeObject(users);
+        out.close();
+
+        ObjectInputStream in = new ObjectInputStream(new FileInputStream("/tmp/userlist.dat"));
+
+        ArrayList<User> list = (ArrayList<User>) in.readObject();
+        in.close();
+
+        for (User a : list) {
+            System.out.println(a);
+        }
+    }
+```
+
+**깊은 복사를 위한 직렬화**
+
+```java
+public static void main(String[] args) throws IOException, ClassNotFoundException {
+        User u1 = new User("lee@naver.com", "lee", 1999);
+        User u2 = new User("kim@naver.com", "kim", 2003);
+        User u3 = new User("park@naver.com", "park", 2010);
+
+        ArrayList<User> users = new ArrayList<>();
+        users.add(u1);
+        users.add(u2);
+        users.add(u3);
+
+        // 얉은 복사1
+        ArrayList<User> users2 = users;
+
+
+        // 얉은 복사2
+        ArrayList<User> users3 = new ArrayList<>();
+        for (User u : users2) {
+            users3.add(u);
+        }
+
+        // 깊은 복사
+        ArrayList<User> users4 = copy(users);
+
+        for (User u : users4) {
+            System.out.println(u);
+        }
+    }
+
+    private static ArrayList<User> copy(ArrayList<User> users) throws IOException, ClassNotFoundException {
+        // 깊은 복사를 위해선 직렬화가 필요하다.
+        ByteArrayOutputStream bout = new ByteArrayOutputStream();
+        ObjectOutputStream out = new ObjectOutputStream(bout);
+
+        out.writeObject(users);
+
+        out.close();
+        bout.close();
+
+        byte[] array = bout.toByteArray();
+
+        ObjectInputStream in = new ObjectInputStream(new ByteArrayInputStream(array));
+        ArrayList<User> userList = (ArrayList<User>) in.readObject();
+
+        in.close();
+
+        return userList;
+
+    }
+```
+
+
+
+
+
+## [JAVA 미니프로젝트] 회원관리 프로그램
+
+#### 기능
+
+1. 회원 등록
+2. 회원 목록 보기
+3. 회원 수정
+4. 회원 삭제
+5. 종료
+
+* 프로그램을 실행하면 /tmp/user.dat 파일에서 회원정보를 읽어온다.
+* 해당 파일이 없을 경우 읽어오지 않는다.
+* 프로그램 종료시, 메모리에 있는 회원 정보를 /tmp/users.dat에 저장한다.
+* 프로그램을 강제 종료하면 저장이 안될 수 있다.
+
+#### 회원 등록 구현
+
+```
+email을 입력하세요: admin@naver.com
+
+이름을 입력하세요: JS
+
+생년을 입력하세요: 1999
+
+등록되었습니다...
+```
+
+#### 회원 목록 보기
+
+```
+email: admin@naver.com
+
+이름: JS
+
+생년: 1999
+```
+
+#### 설계 스케치
+
+![image.png](assets/image-mini.png)
+
+#### User
+
+```java
+public class User implements Serializable {
+    private String email;
+    private String name;
+    private int birthYear;
+
+    public User(String email, String name, int birthYear) {
+        this.email = email;
+        this.name = name;
+        this.birthYear = birthYear;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getBirthYear() {
+        return birthYear;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "email='" + email + '\'' +
+                ", name='" + name + '\'' +
+                ", birthYear=" + birthYear +
+                '}';
+    }
+}
+
+```
+
+#### UserDao
+
+- saveUser(파일명) : 파일에 User 정보 등록
+- loadUSer(): User 정보 읽어오기
+
+```java
+public class UserDao {
+    private  String filename;
+
+    public UserDao(String filename) {
+        this.filename = filename;
+    }
+
+    public void saveUser(List<User> userList) {
+        try(ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(filename))) {
+            out.writeObject(userList);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public List<User> loadUser() {
+        File file = new File(filename);
+
+        // 파일이 존재하는 지 확인
+        if (!file.exists()) {
+            return new ArrayList<>();
+        }
+
+        List<User> list = null;
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(filename))) {
+             list = (List<User>) in.readObject();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+}
+```
+
+#### UserUI
+
+```java
+public class UserUI {
+    private BufferedReader br;
+
+    public UserUI() {
+        br = new BufferedReader(new InputStreamReader(System.in));
+    }
+
+    public int menu() throws IOException {
+        System.out.println("1. 회원 등록");
+        System.out.println("2. 회원 목록 보기");
+        System.out.println("3. 프로그램 종료");
+
+        String line = br.readLine();
+        return Integer.parseInt(line);
+    }
+
+    // User 등록
+    public User regMenu() {
+        try {
+            System.out.print("email을 입력하세요: ");
+            String email = br.readLine();
+            System.out.print("이름을 입력하세요: ");
+            String name = br.readLine();
+            System.out.print("생년을 입력하세요: ");
+            int birthYear = Integer.parseInt(br.readLine());
+
+            User user = new User(email, name, birthYear);
+            return user;
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    // User 목록 보기
+    public void listUser(List<User> users) {
+        System.out.println("email           이름          생년");
+        System.out.println("================================");
+        for (User user : users) {
+            System.out.print(user.getEmail());
+            System.out.print("      ");
+            System.out.print(user.getName());
+            System.out.print("      ");
+            System.out.print(user.getBirthYear());
+            System.out.print("      ");
+        }
+    } 
+}
+
+```
+
+#### UserMain
+
+```java
+public class UserMain {
+    public static void main(String[] args) {
+        UserUI userUI = new UserUI();
+        UserDao userDao = new UserDao("/tmp/users.dat");
+        List<User> users = userDao.loadUsers();
+
+        // 메뉴
+        while (true) {
+            int menuId = userUI.menu();
+
+            // 프로그램 종료
+            if (menuId == 5) {
+                System.out.println("프로그램을 종료합니다.");
+                userDao.saveUser(users);
+                break;
+
+            // User 등록
+            } else if (menuId == 1) {
+                User user = userUI.regUser();
+                users.add(user);
+                System.out.println("등록이 완료되었습니다.");
+
+            // User 목록 보기
+            } else if (menuId == 2) {
+                userUI.listUser(users);
+            }
+        }
+
+    }
+}
+
+```
+
+### User 수정
+
+수정할 회원의 email을 입력 받기
+
+* email 주소가 메모리상의 회원정보에 있을 경우: 수정
+* email 주소가 메모리상의 회원정보에 없을 경우: "존재하지 않는 회원입니다."
+
+```java
+public void updateUser(List<User> users) {
+        try {
+            System.out.print("수정할 회원의 email을 입력하세요: ");
+            String userEmail = br.readLine();
+
+            int a = 0;
+
+            for (int i = 0; i < users.size(); i++) {
+                if (users.get(i).getEmail().equals(userEmail)) {
+                    System.out.println(userEmail + " 회원의 정보를 수정합니다.");
+                    System.out.print("이름을 입력하시오: ");
+                    String updateName = br.readLine();
+                    System.out.print("생년을 입력하시오: ");
+                    int updateBirthYear = Integer.parseInt(br.readLine());
+
+                    users.remove(i);
+                    users.add(new User(userEmail, updateName, updateBirthYear));
+                    a=1;
+                    System.out.println("수정이 완료되었습니다.");
+                }
+            }
+
+            if (a == 0) {
+                System.out.println("존재하지 않는 User 입니다.");
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+```
+
+### User 삭제
+
+```java
+public void removeUser(List<User> users) {
+        try {
+            System.out.print("삭제할 회원의 email을 입력하세요: ");
+            String userEmail = br.readLine();
+            int a=0;
+
+            for (int i = 0; i < users.size(); i++) {
+                if (users.get(i).getEmail().equals(userEmail)) {
+
+                    users.remove(i);
+                    a = 1;
+                    System.out.println("삭제가 완료되었습니다.");
+                }
+            }
+
+            if (a==0) System.out.println("존재하지 않는 User입니다.");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+```
+
+## 코드 리펙토링
+
+UserService 인터페이스 생성
+
+```java
+package com.example.io;
+
+import java.util.Iterator;
+import java.util.List;
+
+public interface UserService {
+    // 회원정보 등록
+    public void addUser(User user);
+
+    // 회원정보 수정 - 성공 유무 반환
+    public boolean updateUser(User user);
+
+    // 회원정보 삭제 - 성공 유무 반환
+    public boolean deleteUser(String email);
+
+    // 회원 목록 반환
+    public Iterator<User> getUsers();
+
+    // email에 해당하는 회원 있는지 확인
+    public boolean exists(String email);
+}
+
+```
+
+UserService 구현
+
+```java
+package com.example.io;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+// 메모리상에 User 정보를 관리하는 클래스
+public class UserServiceInMemory implements UserService {
+    private List<User> users;
+
+    public UserServiceInMemory() {
+        this.users = new ArrayList<>();
+    }
+
+    public UserServiceInMemory(List<User> users) {
+        this.users = users;
+    }
+
+    @Override
+    public void addUser(User user) {
+        users.add(user);
+    }
+
+    @Override
+    public boolean updateUser(User user) {
+        boolean deleteFlag = deleteUser(user.getEmail());
+
+        if (deleteFlag) {
+            users.add(user);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean deleteUser(String email) {
+        int findIndex = findIndex(email);
+
+        if (findIndex > -1) {
+            users.remove(findIndex);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    // 필드 users 정보를 그래도 리턴할 것이냐?  - 외부에서 users 정보 조작 가능한 문제
+    // 아니면 users 정보를 복사한 후 리턴할 것이냐?     - 동기화 문제
+    // 따라서 users 정보를 읽기 전용으로 외부에 반환해주는 것이 좋다.
+    // 읽기 전용 인터페이스인 Iterator 사용
+    @Override
+    public Iterator<User> getUsers() {
+        return users.iterator();
+    }
+
+    @Override
+    public boolean exists(String email) {
+        if (findIndex(email) > -1) {
+            return true;
+        } else return false;
+    }
+
+    public int findIndex(String email) {
+        int findIndex = -1;
+        for (int i = 0; i < users.size(); i++) {
+            if (users.get(i).getEmail().equals(email)) {
+                findIndex = i;
+                break;
+            }
+        }
+
+        return findIndex;
+    }
+}
+
+```
+
+Main
+
+```java
+package com.example.io;
+
+import java.util.List;
+
+public class UserMain {
+    public static void main(String[] args) {
+        UserUI userUI = new UserUI();
+        UserDao userDao = new UserDao("/tmp/users.dat");
+        UserService userService = new UserServiceInMemory(userDao.loadUsers());
+
+        // 메뉴
+        while (true) {
+            int menuId = userUI.menu();
+
+            // 프로그램 종료
+            if (menuId == 5) {
+                System.out.println("프로그램을 종료합니다.");
+                userDao.saveUser(userService.getUsers());
+                break;
+
+            // User 등록
+            } else if (menuId == 1) {
+                User user = userUI.regUser();
+                userService.addUser(user);
+                System.out.println("등록이 완료되었습니다.");
+
+            // User 목록 보기
+            } else if (menuId == 2) {
+                userUI.listUser(userService.getUsers());
+
+            // User 수정
+            } else if (menuId == 3) {
+                String email = userUI.inputEmail();
+                boolean isFindEmail = userService.exists(email);
+
+                // 존재하는 User인 경우
+                if (isFindEmail) {
+                    User updateUser = userUI.inputUser(email);
+                    userService.updateUser(updateUser);
+                    System.out.println("수정이 완료되었습니다.");
+                } else {
+                    System.out.println("존재하지 않는 User입니다.");
+                }
+
+                // User 삭제
+            } else if (menuId == 4) {
+                String email = userUI.inputEmail();
+                boolean isFindEmail = userService.exists(email);
+
+                if (isFindEmail) {
+                    userService.deleteUser(email);
+                    System.out.println("삭제가 완료되었습니다.");
+                } else {
+                    System.out.println("존재하지 않는 User입니다.");
+                }
+            }
+
+        }
+
+    }
+}
+```
